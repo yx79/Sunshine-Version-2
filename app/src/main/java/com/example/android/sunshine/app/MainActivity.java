@@ -8,6 +8,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -50,13 +55,38 @@ public class MainActivity extends ActionBarActivity {
      */
     public static class PlaceholderFragment extends Fragment {
 
+        ArrayAdapter<String> mForecastAdapter;
+
         public PlaceholderFragment() {
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
+            ArrayList<String> weatherList = new ArrayList<>();
+            weatherList.add("Today 10/3 - Sunny - 88 / 63");
+            weatherList.add("Tomorrow 10/4 - Foggy - 70 / 46");
+            weatherList.add("Weds 10/5 - Sunny - 88 / 63");
+            weatherList.add("Thurs 10/6 - Sunny - 88 / 63");
+            weatherList.add("Fri 10/7 - Sunny - 88 / 63");
+            weatherList.add("Sat 10/8 - Sunny - 88 / 63");
+            weatherList.add("Sun 10/9 - Sunny - 88 / 63");
+
+
+            // Initialize a new ArrayAdapter
+            mForecastAdapter = new ArrayAdapter<String>(
+                    getActivity(),  // current context
+                    R.layout.list_item_forecast,    // ID of list item layout
+                    R.id.list_item_forecast_textview,   // ID of textview to populate
+                    weatherList //  forecast dummy data
+            );
+
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+            // get the reference of listview and attach the adapter
+            ListView listview = (ListView) rootView.findViewById(R.id.listview_forecast);
+            listview.setAdapter(mForecastAdapter);
             return rootView;
         }
     }
